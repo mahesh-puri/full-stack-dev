@@ -1,3 +1,3 @@
 # resume
 
-Hi, this is a resume website developed in HTML, CSS and JS.
+This is a resume website developed in HTML, CSS and JS.
