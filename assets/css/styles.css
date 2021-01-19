@@ -556,7 +556,7 @@ img {
   border-radius: 0.5rem;
 }
 
-.contact :: ::placeholder {
+.contact::placeholder {
   color: var(--first-color-dark);
   font-family: var(--body-font);
   font-weight: var(--font-medium);
