@@ -548,6 +548,7 @@ img {
 
 .project__title,
 .project__description {
+  font-size: var(--h2-font-size);
   color: var(--first-color-lighten);
 }
 
