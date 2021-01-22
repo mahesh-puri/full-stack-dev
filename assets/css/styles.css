@@ -216,7 +216,7 @@ img {
   text-align: center;
 }
 
-.home__img {
+/* .home__img {
   padding-top: 1.3rem;
   padding-left: 0.8rem;
   width: 160px;
@@ -229,6 +229,20 @@ img {
 
 .home__img img {
   width: 155px;
+} */
+
+.home__img {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 1px solid var(--first-color-darken);
+  overflow: hidden;
+  margin-bottom: var(--mb-2);
+}
+
+.home__img img {
+  width: 160px;
+  height: 160px;
 }
 
 .home__title {
@@ -238,13 +252,21 @@ img {
 }
 
 .home__profession {
-  font-size: var(--small-font-size);
+  font-size: var(--h3-font-size);
+  font-weight: var(--font-semi-bold);
+  color: var(--first-color-darken);
+  margin-bottom: var(--mb-2);
+}
+
+.home__profession-skills {
+  font-size: var(--font-medium);
+  font-weight: var(--font-semi-bold);
   color: var(--first-color-dark);
   margin-bottom: var(--mb-5);
 }
 
 .home__social {
-  margin-bottom: 5rem;
+  margin-bottom: 1rem;
 }
 
 .home__social-link {
@@ -263,6 +285,7 @@ img {
 }
 
 .home__button {
+  margin: var(--mb-5);
   width: 100%;
 }
 
