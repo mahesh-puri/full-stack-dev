@@ -11,21 +11,6 @@
       "src": "assets/img/logo/pic-72x72.png",
       "type": "image/png",
       "sizes": "72x72"
-    },
-    {
-      "src": "assets/img/logo/pic-128x128.png",
-      "type": "image/png",
-      "sizes": "128x128"
-    },
-    {
-      "src": "assets/img/logo/pic-384x384.png",
-      "type": "image/png",
-      "sizes": "384x384"
-    },
-    {
-      "src": "assets/img/logo/pic-512x512.png",
-      "type": "image/png",
-      "sizes": "512x512"
     }
   ]
 }
