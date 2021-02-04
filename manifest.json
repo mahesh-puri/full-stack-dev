@@ -1,7 +1,7 @@
 {
   "name": "MAHESH-PURI-RESUME",
   "short_name": "Mahesh Puri",
-  "start_url": "./index.html",
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#cc4b2c",
   "theme_color": "#cc4b2c",
