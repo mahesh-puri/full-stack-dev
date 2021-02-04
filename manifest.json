@@ -1,29 +1,29 @@
 {
   "name": "MAHESH-PURI-RESUME",
   "short_name": "Mahesh",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#cc4b2c",
   "theme_color": "#cc4b2c",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "https://mahesh-puri.github.io/resume/assets/img/logo/pic-72x72.png",
+      "src": "assets/img/logo/pic-72x72.png",
       "type": "image/png",
       "sizes": "72x72"
     },
     {
-      "src": "https://mahesh-puri.github.io/resume/assets/img/logo/pic-128x128.png",
+      "src": "assets/img/logo/pic-128x128.png",
       "type": "image/png",
       "sizes": "128x128"
     },
     {
-      "src": "https://mahesh-puri.github.io/resume/assets/img/logo/pic-384x384.png",
+      "src": "assets/img/logo/pic-384x384.png",
       "type": "image/png",
       "sizes": "384x384"
     },
     {
-      "src": "https://mahesh-puri.github.io/resume/assets/img/logo/pic-512x512.png",
+      "src": "assets/img/logo/pic-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
