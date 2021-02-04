@@ -8,7 +8,7 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/abc/assets/img/logo/maskable_icon_x1.png",
+      "src": "assets/img/logo/maskable_icon_x1.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
