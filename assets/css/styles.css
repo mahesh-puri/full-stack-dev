@@ -329,7 +329,7 @@ img {
 
 .about__img {
   width: 150px;
-  border: var(--first-color-darken) solid 1px;
+  /* border: var(--first-color-darken) solid 1px; */
   box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 22px 0 rgba(0, 0, 0, 0.19);
   border-radius: 0.5rem;
   margin: 0 auto;
