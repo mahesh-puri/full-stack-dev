@@ -1,6 +1,5 @@
 const staticCacheName = "site-static-v1";
 const assets = [
-  "/",
   "https://mahesh-puri.github.io/resume/index.html",
   "https://mahesh-puri.github.io/resume/assets/js/main.js",
   "https://mahesh-puri.github.io/resume/assets/css/styles.css",
