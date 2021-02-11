@@ -8,13 +8,13 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/assets/img/logo/maskable_icon_x3.png",
+      "src": "assets/img/logo/maskable_icon_x3.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "maskable"
     },
     {
-      "src": "/assets/img/logo/maskable_icon_x1.png",
+      "src": "assets/img/logo/maskable_icon_x1.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
