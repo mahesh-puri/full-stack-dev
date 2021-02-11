@@ -15,7 +15,7 @@ self.addEventListener("install", (evt) => {
   evt.waitUntil(
     caches.open("sw-cache").then((cache) => {
       console.log("caching shell assets");
-      cache.addAll(assets);
+      cache.add("index.html");
     })
   );
 });
