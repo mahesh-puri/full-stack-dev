@@ -34,9 +34,27 @@ self.addEventListener("activate", (evt) => {
 // fetch event
 self.addEventListener("fetch", (evt) => {
   console.log("[ServiceWorker] Fetch", evt.request.url);
-  evt.respondWith(
-    caches.match(evt.request).then((cacheRes) => {
-      return cacheRes || fetch(evt.request);
-    })
-  );
+
+  if (evt.request.url.includes("mahesh-puri.github.io/resume/")) {
+    evt.respondWith(
+      caches.open(CACHE_NAME).then((cache) => {
+        return cache.match(evt.request).then(
+          (cacheResponse) =>
+            cacheResponse ||
+            fetch(evt.request).then((networkResponse) => {
+              cache.put(evt.request, networkResponse.clone());
+              return networkResponse;
+            })
+        );
+      })
+    );
+  } else {
+    evt.respondWith(fetch(evt.request));
+  }
+
+  // evt.respondWith(
+  //   caches.match(evt.request).then((cacheRes) => {
+  //     return cacheRes || fetch(evt.request);
+  //   })
+  // );
 });
