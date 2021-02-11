@@ -1,4 +1,4 @@
-const staticCacheName = "site-static-v1";
+// const staticCacheName = "site-static-v1";
 const assets = [
   "/",
   "./index.html",
@@ -13,7 +13,7 @@ const assets = [
 // install event
 self.addEventListener("install", (evt) => {
   evt.waitUntil(
-    caches.open(staticCacheName).then((cache) => {
+    caches.open("sw-cache").then((cache) => {
       console.log("caching shell assets");
       cache.addAll(assets);
     })
