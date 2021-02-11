@@ -1,6 +1,4 @@
-// const staticCacheName = "site-static-v1";
-const staticCacheName = "static-cache-v2.1.0";
-
+const staticCacheName = "site-static-v1";
 const assets = [
   "/",
   "./index.html",
@@ -37,27 +35,9 @@ self.addEventListener("activate", (evt) => {
 // fetch event
 self.addEventListener("fetch", (evt) => {
   console.log("[ServiceWorker] Fetch", evt.request.url);
-
-  if (evt.request.url.includes("mahesh-puri.github.io/resume/")) {
-    evt.respondWith(
-      caches.open(staticCacheName).then((cache) => {
-        return cache.match(evt.request).then(
-          (cacheResponse) =>
-            cacheResponse ||
-            fetch(evt.request).then((networkResponse) => {
-              cache.put(evt.request, networkResponse.clone());
-              return networkResponse;
-            })
-        );
-      })
-    );
-  } else {
-    evt.respondWith(fetch(evt.request));
-  }
-
-  // evt.respondWith(
-  //   caches.match(evt.request).then((cacheRes) => {
-  //     return cacheRes || fetch(evt.request);
-  //   })
-  // );
+  evt.respondWith(
+    caches.match(evt.request).then((cacheRes) => {
+      return cacheRes || fetch(evt.request);
+    })
+  );
 });
