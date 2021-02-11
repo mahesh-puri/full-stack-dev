@@ -34,7 +34,6 @@ self.addEventListener("activate", (evt) => {
 });
 // fetch event
 self.addEventListener("fetch", (evt) => {
-  console.log("[ServiceWorker] Fetch", evt.request.url);
   evt.respondWith(
     caches.match(evt.request).then((cacheRes) => {
       return cacheRes || fetch(evt.request);
