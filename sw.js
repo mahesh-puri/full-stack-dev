@@ -1,13 +1,13 @@
 const staticCacheName = "site-static-v1";
 const assets = [
   "/",
-  "index.html",
-  "assets/js/main.js",
-  "assets/css/styles.css",
-  "assets/img/perfil.jpg",
-  "assets/img/logo/maskable_icon_x1.png",
-  "assets/img/about.jpg",
-  "assets/img/projectmind.jpg",
+  "https://mahesh-puri.github.io/resume/index.html",
+  "https://mahesh-puri.github.io/resume/assets/js/main.js",
+  "https://mahesh-puri.github.io/resume/assets/css/styles.css",
+  "https://mahesh-puri.github.io/resume/assets/img/perfil.jpg",
+  "https://mahesh-puri.github.io/resume/assets/img/logo/maskable_icon_x1.png",
+  "https://mahesh-puri.github.io/resume/assets/img/about.jpg",
+  "https://mahesh-puri.github.io/resume/assets/img/projectmind.jpg",
   "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap",
 ];
 // install event
