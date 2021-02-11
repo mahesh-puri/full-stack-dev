@@ -7,8 +7,8 @@ const assets = [
   "./assets/img/perfil.jpg",
   "./assets/img/logo/maskable_icon_x1.png",
   "./assets/img/logo/maskable_icon_x3.png",
-  "./assets/img/about.jpg",
-  "./assets/img/projectmind.jpg",
+  "./assets/img/about.jpeg",
+  "./assets/img/projectmind.png",
   "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap",
 ];
 // install event
