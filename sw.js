@@ -1,4 +1,6 @@
-const staticCacheName = "site-static-v1";
+// const staticCacheName = "site-static-v1";
+const staticCacheName = "static-cache-v2.1.0";
+
 const assets = [
   "/",
   "./index.html",
@@ -38,7 +40,7 @@ self.addEventListener("fetch", (evt) => {
 
   if (evt.request.url.includes("mahesh-puri.github.io/resume/")) {
     evt.respondWith(
-      caches.open(CACHE_NAME).then((cache) => {
+      caches.open(staticCacheName).then((cache) => {
         return cache.match(evt.request).then(
           (cacheResponse) =>
             cacheResponse ||
