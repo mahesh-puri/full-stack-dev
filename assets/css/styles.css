@@ -834,3 +834,74 @@ body.dark-theme .button {
 body.dark-theme .button:hover {
   background-color: #ff8a65;
 }
+
+/* ===== DARK THEME TEXT FIXES ===== */
+body.dark-theme {
+  color: #e0e0e0;
+}
+
+/* Section titles & subtitles */
+body.dark-theme .section-title,
+body.dark-theme .section-subtitle {
+  color: #ff8a65;
+}
+
+/* Headings & key labels */
+body.dark-theme h1,
+body.dark-theme h2,
+body.dark-theme h3 {
+  color: #ffffff;
+}
+
+/* Home section text */
+body.dark-theme .home__title,
+body.dark-theme .home__profession,
+body.dark-theme .home__profession-skills {
+  color: #ffffff;
+}
+
+/* About / Skills / Education labels */
+body.dark-theme .about__information-title,
+body.dark-theme .skills__subtitle,
+body.dark-theme .education__year,
+body.dark-theme .education__race,
+body.dark-theme .education__university,
+body.dark-theme .education__specialty {
+  color: #e0e0e0;
+}
+
+/* Project CTA section */
+body.dark-theme .project__title,
+body.dark-theme .project__description {
+  color: #ffffff;
+}
+
+/* Contact section */
+body.dark-theme .contact__subtitle,
+body.dark-theme .contact__text,
+body.dark-theme .contact__input::placeholder {
+  color: #e0e0e0;
+}
+
+/* Email line */
+body.dark-theme .home__profession {
+  color: #cccccc;
+}
+
+/* Footer text */
+body.dark-theme .footer__title,
+body.dark-theme .footer__description,
+body.dark-theme .footer p {
+  color: #e0e0e0;
+}
+
+/* Footer links */
+body.dark-theme .footer__link {
+  background-color: var(--first-color);
+  color: #121212;
+}
+
+body.dark-theme .footer__link:hover {
+  background-color: #ff8a65;
+  color: #121212;
+}
