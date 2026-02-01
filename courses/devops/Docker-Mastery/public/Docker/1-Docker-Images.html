@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>1. Docker Images</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="Quartz 4"/><meta property="og:title" content="1. Docker Images"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="1. Docker Images"/><meta name="twitter:description" content="If containers are lightweight processes, images are the immutable blueprints that define what those processes look like at runtime."/><meta property="og:description" content="If containers are lightweight processes, images are the immutable blueprints that define what those processes look like at runtime."/><meta property="og:image:alt" content="If containers are lightweight processes, images are the immutable blueprints that define what those processes look like at runtime."/><meta property="twitter:domain" content="mahesh-puri.github.io/full-stack-dev"/><meta property="og:url" content="https://mahesh-puri.github.io/full-stack-dev/Docker/1-Docker-Images"/><meta property="twitter:url" content="https://mahesh-puri.github.io/full-stack-dev/Docker/1-Docker-Images"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="If containers are lightweight processes, images are the immutable blueprints that define what those processes look like at runtime."/><meta name="generator" content="Quartz"/><link href="../index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiRTpcXEdpdEh1YlxcZnVsbC1zdGFjay1kZXZcXGNvdXJzZXNcXGRldm9wc1xcRG9ja2VyLU1hc3RlcnlcXHF1YXJ0elxcY29tcG9uZW50c1xcc3R5bGVzIiwic291cmNlcyI6WyJtZXJtYWlkLmlubGluZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTtFQUNBOztBQUdGO0VBQ0U7RUFDQTs7QUFHRjtFQUNFOzs7QUFLRjtFQUNFO0VBQ0E7OztBQUlKO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFOztBQUdGO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTtFQUNBOztBQUdGO0VBQ0U7RUFDQTs7QUFJSjtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7O0FBR0Y7RUFDRTs7QUFJRjtFQUNFO0VBQ0E7RUFDQSIsInNvdXJjZXNDb250ZW50IjpbIi5leHBhbmQtYnV0dG9uIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbG9hdDogcmlnaHQ7XG4gIHBhZGRpbmc6IDAuNHJlbTtcbiAgbWFyZ2luOiAwLjNyZW07XG4gIHJpZ2h0OiAwOyAvLyBOT1RFOiByaWdodCB3aWxsIGJlIHNldCBpbiBtZXJtYWlkLmlubGluZS50c1xuICBjb2xvcjogdmFyKC0tZ3JheSk7XG4gIGJvcmRlci1jb2xvcjogdmFyKC0tZGFyayk7XG4gIGJhY2tncm91bmQtY29sb3I6IHZhcigtLWxpZ2h0KTtcbiAgYm9yZGVyOiAxcHggc29saWQ7XG4gIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgb3BhY2l0eTogMDtcbiAgdHJhbnNpdGlvbjogMC4ycztcblxuICAmID4gc3ZnIHtcbiAgICBmaWxsOiB2YXIoLS1saWdodCk7XG4gICAgZmlsdGVyOiBjb250cmFzdCgwLjMpO1xuICB9XG5cbiAgJjpob3ZlciB7XG4gICAgY3Vyc29yOiBwb2ludGVyO1xuICAgIGJvcmRlci1jb2xvcjogdmFyKC0tc2Vjb25kYXJ5KTtcbiAgfVxuXG4gICY6Zm9jdXMge1xuICAgIG91dGxpbmU6IDA7XG4gIH1cbn1cblxucHJlIHtcbiAgJjpob3ZlciA+IC5leHBhbmQtYnV0dG9uIHtcbiAgICBvcGFjaXR5OiAxO1xuICAgIHRyYW5zaXRpb246IDAuMnM7XG4gIH1cbn1cblxuI21lcm1haWQtY29udGFpbmVyIHtcbiAgcG9zaXRpb246IGZpeGVkO1xuICBjb250YWluOiBsYXlvdXQ7XG4gIHotaW5kZXg6IDk5OTtcbiAgbGVmdDogMDtcbiAgdG9wOiAwO1xuICB3aWR0aDogMTAwdnc7XG4gIGhlaWdodDogMTAwdmg7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIGRpc3BsYXk6IG5vbmU7XG4gIGJhY2tkcm9wLWZpbHRlcjogYmx1cig0cHgpO1xuICBiYWNrZ3JvdW5kOiByZ2JhKDAsIDAsIDAsIDAuNSk7XG5cbiAgJi5hY3RpdmUge1xuICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgfVxuXG4gICYgPiAjbWVybWFpZC1zcGFjZSB7XG4gICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1saWdodCk7XG4gICAgYm9yZGVyLXJhZGl1czogNXB4O1xuICAgIHBvc2l0aW9uOiBmaXhlZDtcbiAgICB0b3A6IDUwJTtcbiAgICBsZWZ0OiA1MCU7XG4gICAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoLTUwJSwgLTUwJSk7XG4gICAgaGVpZ2h0OiA4MHZoO1xuICAgIHdpZHRoOiA4MHZ3O1xuICAgIG92ZXJmbG93OiBoaWRkZW47XG5cbiAgICAmID4gLm1lcm1haWQtY29udGVudCB7XG4gICAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgICB0cmFuc2Zvcm0tb3JpZ2luOiAwIDA7XG4gICAgICB0cmFuc2l0aW9uOiB0cmFuc2Zvcm0gMC4xcyBlYXNlO1xuICAgICAgb3ZlcmZsb3c6IHZpc2libGU7XG4gICAgICBtaW4taGVpZ2h0OiAyMDBweDtcbiAgICAgIG1pbi13aWR0aDogMjAwcHg7XG5cbiAgICAgIHByZSB7XG4gICAgICAgIG1hcmdpbjogMDtcbiAgICAgICAgYm9yZGVyOiBub25lO1xuICAgICAgfVxuXG4gICAgICBzdmcge1xuICAgICAgICBtYXgtd2lkdGg6IG5vbmU7XG4gICAgICAgIGhlaWdodDogYXV0bztcbiAgICAgIH1cbiAgICB9XG5cbiAgICAmID4gLm1lcm1haWQtY29udHJvbHMge1xuICAgICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgICAgYm90dG9tOiAyMHB4O1xuICAgICAgcmlnaHQ6IDIwcHg7XG4gICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgZ2FwOiA4cHg7XG4gICAgICBwYWRkaW5nOiA4cHg7XG4gICAgICBiYWNrZ3JvdW5kOiB2YXIoLS1saWdodCk7XG4gICAgICBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS1saWdodGdyYXkpO1xuICAgICAgYm9yZGVyLXJhZGl1czogNnB4O1xuICAgICAgYm94LXNoYWRvdzogMCAycHggNHB4IHJnYmEoMCwgMCwgMCwgMC4xKTtcbiAgICAgIHotaW5kZXg6IDI7XG5cbiAgICAgIC5tZXJtYWlkLWNvbnRyb2wtYnV0dG9uIHtcbiAgICAgICAgZGlzcGxheTogZmxleDtcbiAgICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICAgICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gICAgICAgIHdpZHRoOiAzMnB4O1xuICAgICAgICBoZWlnaHQ6IDMycHg7XG4gICAgICAgIHBhZGRpbmc6IDA7XG4gICAgICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgICAgIGJhY2tncm91bmQ6IHZhcigtLWxpZ2h0KTtcbiAgICAgICAgY29sb3I6IHZhcigtLWRhcmspO1xuICAgICAgICBib3JkZXItcmFkaXVzOiA0cHg7XG4gICAgICAgIGN1cnNvcjogcG9pbnRlcjtcbiAgICAgICAgZm9udC1zaXplOiAxNnB4O1xuICAgICAgICBmb250LWZhbWlseTogdmFyKC0tYm9keUZvbnQpO1xuICAgICAgICB0cmFuc2l0aW9uOiBhbGwgMC4ycyBlYXNlO1xuXG4gICAgICAgICY6aG92ZXIge1xuICAgICAgICAgIGJhY2tncm91bmQ6IHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgICAgIH1cblxuICAgICAgICAmOmFjdGl2ZSB7XG4gICAgICAgICAgdHJhbnNmb3JtOiB0cmFuc2xhdGVZKDFweCk7XG4gICAgICAgIH1cblxuICAgICAgICAvLyBTdHlsZSB0aGUgcmVzZXQgYnV0dG9uIGRpZmZlcmVudGx5XG4gICAgICAgICY6bnRoLWNoaWxkKDIpIHtcbiAgICAgICAgICB3aWR0aDogYXV0bztcbiAgICAgICAgICBwYWRkaW5nOiAwIDEycHg7XG4gICAgICAgICAgZm9udC1zaXplOiAxNHB4O1xuICAgICAgICB9XG4gICAgICB9XG4gICAgfVxuICB9XG59XG4iXX0= */</style><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="https://mahesh-puri.github.io/full-stack-dev/index.xml"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://mahesh-puri.github.io/full-stack-dev/Docker/1-Docker-Images-og-image.webp"/><meta property="og:image:url" content="https://mahesh-puri.github.io/full-stack-dev/Docker/1-Docker-Images-og-image.webp"/><meta name="twitter:image" content="https://mahesh-puri.github.io/full-stack-dev/Docker/1-Docker-Images-og-image.webp"/><meta property="og:image:type" content="image/.webp"/></head><body data-slug="Docker/1-Docker-Images"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">Quartz 4</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):!a.isFolder&amp;&amp;b.isFolder?1:-1&quot;,&quot;filterFn&quot;:&quot;node=>node.slugSegment!==\&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-4" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../Docker/">Docker</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>1. Docker Images</a></div></nav><h1 class="article-title">1. Docker Images</h1><p show-comma="true" class="content-meta"><time datetime="2026-02-01T14:46:42.000Z">Feb 01, 2026</time><span>8 min read</span></p></div></div><article class="popover-hint"><p>If containers are lightweight processes, images are the immutable blueprints
+that define what those processes look like at runtime.</p>
+<p>This article walks from mental models to real Dockerfile behavior.</p>
+<h2 id="1-mental-model-image-vs-container-vs-registry">1. Mental Model: Image vs Container vs Registry<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-mental-model-image-vs-container-vs-registry" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Before touching commands, fix this mental picture in your head:</p>
+<ul>
+<li><strong>Image</strong>
+<ul>
+<li>A read‑only, versioned filesystem template plus metadata.</li>
+<li>Think: “frozen snapshot of a root filesystem + config”.</li>
+</ul>
+</li>
+<li><strong>Container</strong>
+<ul>
+<li>A running (or stopped) Linux process that <strong>uses</strong> an image as its root filesystem, plus a small writable layer on top.</li>
+<li>Think: “image + runtime state”.</li>
+</ul>
+</li>
+<li><strong>Registry</strong>
+<ul>
+<li>A remote storage for images, similar to a Git server for code.</li>
+<li>Docker Hub, ECR, GCR, GitHub Container Registry, etc.</li>
+</ul>
+</li>
+</ul>
+<p>Workflow in one sentence:<br/>
+You build an image locally → tag it → push it to a registry → pull and run it on other machines (or clusters).</p>
+<hr/>
+<h2 id="2-image-internals-layers-and-the-build-graph">2. Image Internals: Layers and the Build Graph<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-image-internals-layers-and-the-build-graph" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Docker images are not single files; they’re stacks of <strong>layers</strong>, usually implemented via a union filesystem. Each layer:</p>
+<ul>
+<li>Represents a change to the filesystem (add files, remove files, modify files).</li>
+<li>Is identified by a content hash.</li>
+<li>Is immutable once created.</li>
+<li>Can be shared between images to save space and speed up pulls.</li>
+</ul>
+<p>When you write a Dockerfile:</p>
+<pre><code>
+FROM eclipse-temurin:21-jre-alpine
+
+WORKDIR /app
+COPY app.jar /app/app.jar
+CMD [&quot;java&quot;,&quot;-jar&quot;,&quot;app.jar&quot;]
+
+</code></pre>
+<p>Conceptually, Docker does something like this:</p>
+<ol>
+<li>Start from the base image <code>eclipse-temurin:21-jre-alpine</code> (many layers already).</li>
+<li>Add a layer that creates/sets <code>WORKDIR /app</code>.</li>
+<li>Add a layer that copies <code>app.jar</code>.</li>
+<li>Add metadata for the <code>CMD</code>.</li>
+</ol>
+<p>Each instruction produces a new layer <strong>if it changes the filesystem</strong>. That layering is exactly what powers Docker’s build cache and efficient distribution.</p>
+<hr/>
+<h2 id="3-build-cache-why-instruction-order-matters">3. Build Cache: Why Instruction Order Matters<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-build-cache-why-instruction-order-matters" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The Docker build cache works from <strong>top to bottom</strong> of your Dockerfile:</p>
+<ul>
+<li>For each instruction, Docker checks: “Have I seen this same instruction with the same inputs before?”</li>
+<li>If yes, it can reuse the previously built layer instead of rebuilding it.</li>
+<li>If no (e.g., different files, different command), it must rebuild from that point downward.</li>
+</ul>
+<p>That means:</p>
+<ul>
+<li>If you put <code>COPY . .</code> near the top, any change in your source tree invalidates cache for <strong>all later steps</strong>, including heavy dependency installs.</li>
+<li>If you separate dependency steps from source code, you can avoid re‑downloading dependencies on every small code change.</li>
+</ul>
+<p>Example: Java Maven app.</p>
+<p><strong>Suboptimal Dockerfile:</strong></p>
+<pre><code>FROM eclipse-temurin:21-jdk-alpine
+
+WORKDIR /app
+COPY . .
+RUN mvn -q -B package -DskipTests
+CMD [&quot;java&quot;,&quot;-jar&quot;,&quot;target/app.jar&quot;]
+
+</code></pre>
+<p>Every time you change any file in the repo, <code>COPY . .</code> changes → cache invalidation from there down → Maven redownloads stuff and rebuilds.</p>
+<p><strong>Better, cache‑friendly multi‑stage Dockerfile:</strong></p>
+<pre><code>FROM eclipse-temurin:21-jdk-alpine AS build
+WORKDIR /app
+
+# 1. Copy only dependency descriptors and warm cache
+COPY pom.xml .
+RUN mvn -q -B dependency:go-offline
+
+# 2. Copy source code and build
+COPY src ./src
+RUN mvn -q -B package -DskipTests
+
+# 3. Runtime image
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+COPY --from=build /app/target/app.jar app.jar
+CMD [&quot;java&quot;,&quot;-jar&quot;,&quot;app.jar&quot;]
+
+</code></pre>
+<p>Now:</p>
+<ul>
+<li>Changing code in <code>src</code> does <strong>not</strong> invalidate the dependency cache step.</li>
+<li>Only the final build step re‑runs, making rebuilds much faster.</li>
+</ul>
+<p>This “dependency layer before source layer” pattern is universal: Node, Python, Go, Java, etc.</p>
+<hr/>
+<h2 id="4-core-commands-list-build-tag-push-inspect">4. Core Commands: List, Build, Tag, Push, Inspect<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-core-commands-list-build-tag-push-inspect" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h2 id="41-listing-images">4.1 Listing Images<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#41-listing-images" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>See what’s on your machine:</p>
+<pre><code>docker images
+# or
+docker image ls
+
+</code></pre>
+<p>You’ll see columns like:</p>
+<ul>
+<li>REPOSITORY (<code>myorg/payment-service</code>)</li>
+<li>TAG (<code>1.0.0</code>, <code>latest</code>)</li>
+<li>IMAGE ID</li>
+<li>CREATED</li>
+<li>SIZE</li>
+</ul>
+<p>Good hygiene: periodically scan this list and prune unused images.</p>
+<hr/>
+<h2 id="42-building-images">4.2 Building Images<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#42-building-images" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Basic build:</p>
+<pre><code>docker build -t myorg/payment-service:1.0.0 .
+</code></pre>
+<p>Key points:</p>
+<ul>
+<li><code>.</code> is the <strong>build context</strong>: everything under this directory is sent to the Docker daemon.</li>
+<li>Avoid sending huge directories (node_modules, target, .git) unless needed → use <code>.dockerignore</code>.</li>
+</ul>
+<p>Disable cache when you really want fresh layers:</p>
+<pre><code>docker build --no-cache -t myorg/payment-service:1.0.0 .
+</code></pre>
+<p>You’ll rarely want <code>--no-cache</code> in normal dev; it’s mainly for debugging or when the cache gets confusing.</p>
+<hr/>
+<h2 id="43-tagging-images">4.3 Tagging Images<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#43-tagging-images" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Tags are just <strong>labels</strong> pointing to a specific image ID.</p>
+<p>Common patterns:</p>
+<pre><code># Changing tag locally
+docker tag myorg/payment-service:1.0.0 myorg/payment-service:latest
+docker tag myorg/payment-service:1.0.0 myorg/payment-service:1.0.0-prod
+
+</code></pre>
+<p>Mentally treat tags like Git branches pointing to commits:</p>
+<ul>
+<li><code>latest</code> is not special; it’s just a tag.</li>
+<li>You decide what <code>latest</code> means (usually “most stable release” or “most recent build”).</li>
+</ul>
+<hr/>
+<h2 id="44-pushing--pulling-registries">4.4 Pushing &amp; Pulling (Registries)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#44-pushing--pulling-registries" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Once tagged correctly, push to a registry:</p>
+<pre><code># Login once (if required)
+docker login my-registry.example.com
+
+# Tag for registry namespace
+docker tag myorg/payment-service:1.0.0 \
+  my-registry.example.com/myorg/payment-service:1.0.0
+
+# Push
+docker push my-registry.example.com/myorg/payment-service:1.0.0
+
+</code></pre>
+<p>On another machine (or your CI/CD):</p>
+<pre><code>docker pull my-registry.example.com/myorg/payment-service:1.0.0
+docker run -d -p 8080:8080 my-registry.example.com/myorg/payment-service:1.0.0
+
+</code></pre>
+<p>You’ve now decoupled build (anywhere) from run (anywhere else).</p>
+<hr/>
+<h2 id="45-inspecting-images-and-their-layers">4.5 Inspecting Images and Their Layers<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#45-inspecting-images-and-their-layers" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>To see the full metadata:</p>
+<pre><code>docker inspect myorg/payment-service:1.0.0
+</code></pre>
+<p>Useful sections:</p>
+<ul>
+<li><code>Config.Env</code> → default environment variables baked into the image.</li>
+<li><code>Config.Cmd</code> &amp; <code>Config.Entrypoint</code> → what runs by default.</li>
+<li><code>RootFS.Layers</code> → the list of layer digests.</li>
+</ul>
+<p>To see Dockerfile history:</p>
+<pre><code>docker history myorg/payment-service:1.0.0
+</code></pre>
+<p>This shows:</p>
+<ul>
+<li>Each layer’s size.</li>
+<li>The instruction that produced it (when available).</li>
+<li>Which layers are huge and could be optimized.</li>
+</ul>
+<p>You can often spot mistakes like:</p>
+<ul>
+<li>Giant <code>RUN</code> layer that includes package caches.</li>
+<li>Accidentally copying the entire repo (<code>COPY . .</code>) when only a few directories are needed.</li>
+</ul>
+<hr/>
+<h2 id="5-image-size-why-it-matters-and-how-to-shrink-it">5. Image Size: Why It Matters and How to Shrink It<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-image-size-why-it-matters-and-how-to-shrink-it" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Big images hurt you in several ways:</p>
+<ul>
+<li>Slower pushes and pulls (more network usage).</li>
+<li>Slower deployments in Kubernetes clusters.</li>
+<li>More disk usage on every node.</li>
+<li>Larger attack surface: more packages → more CVEs.</li>
+</ul>
+<h2 id="51-choose-the-right-base-image">5.1 Choose the Right Base Image<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#51-choose-the-right-base-image" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>For example:</p>
+<ul>
+<li><code>ubuntu</code> or <code>debian</code> → full distribution, useful for tooling but heavy.</li>
+<li><code>alpine</code> → very small, musl‑based, good for many apps but not all (e.g., some JVM or glibc‑dependent tools need tweaks).</li>
+<li>Language‑specific slim variants (<code>python:3.13-slim</code>, <code>openjdk:21-jre-slim</code>).</li>
+</ul>
+<p>If your app is a Spring Boot service:</p>
+<ul>
+<li>A typical progression: <code>openjdk:21-jre</code> → <code>eclipse-temurin:21-jre-alpine</code> → maybe even distroless Java images later.</li>
+</ul>
+<h2 id="52-clean-up-after-package-installs">5.2 Clean Up After Package Installs<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#52-clean-up-after-package-installs" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>In single <code>RUN</code> instructions, chain commands so you can remove caches in the same layer:</p>
+<pre><code>RUN apk add --no-cache curl
+
+</code></pre>
+<p>For apt‑based images:</p>
+<pre><code>RUN apt-get update &amp;&amp; \
+    apt-get install -y --no-install-recommends curl &amp;&amp; \
+    rm -rf /var/lib/apt/lists/*
+
+</code></pre>
+<p>If you don’t clean up, the package index stays in the layer and bloats your image.</p>
+<h2 id="53-multi-stage-builds-to-strip-tools">5.3 Multi-Stage Builds to Strip Tools<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#53-multi-stage-builds-to-strip-tools" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>As shown earlier, multi‑stage builds keep compilers and build tools in a separate stage, and copy only artifacts to the final runtime image.</p>
+<p>For example, Node:</p>
+<pre><code>FROM node:22-alpine AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+FROM nginx:1.25-alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD [&quot;nginx&quot;,&quot;-g&quot;,&quot;daemon off;&quot;]
+
+</code></pre>
+<p>Here:</p>
+<ul>
+<li>No Node, npm, or dev dependencies remain in the final image.</li>
+<li>Final image is just Nginx + static files.</li>
+</ul>
+<hr/>
+<h2 id="6-tagging-strategy-knowing-whats-in-prod">6. Tagging Strategy: Knowing What’s in Prod<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-tagging-strategy-knowing-whats-in-prod" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Bad pattern: everyone just uses <code>:latest</code> everywhere, and no one knows what commit is actually running in production.</p>
+<p>Better approach:</p>
+<ul>
+<li>Always tag images with:
+<ul>
+<li>Semantic version: <code>1.0.0</code>.</li>
+<li>Build identifier: <code>1.0.0-20260130.1</code>.</li>
+<li>Git SHA: <code>app:git-abc1234</code> (even if only for internal use).</li>
+</ul>
+</li>
+</ul>
+<p>Example flow for a CI build:</p>
+<ol>
+<li>
+<p>Build the image from commit <code>abc1234</code>.</p>
+</li>
+<li>
+<p>Tag:</p>
+<ul>
+<li><code>myorg/payment-service:1.0.0</code></li>
+<li><code>myorg/payment-service:1.0.0-abc1234</code></li>
+<li><code>myorg/payment-service:git-abc1234</code></li>
+</ul>
+</li>
+<li>
+<p>Push all tags.</p>
+</li>
+<li>
+<p>Deploy a specific tag (<code>1.0.0-abc1234</code>) in staging.</p>
+</li>
+<li>
+<p>Promote the <strong>same</strong> tag to production (retag or reuse directly) instead of rebuilding.</p>
+</li>
+</ol>
+<p>This makes it easy to answer “what exact code is running in prod?” and to roll back by deploying a previously known tag.</p>
+<hr/>
+<h2 id="7-cleanup-and-disk-management">7. Cleanup and Disk Management<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-cleanup-and-disk-management" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Over time, your Docker host accumulates:</p>
+<ul>
+<li>Old images.</li>
+<li>Dangling images (no tags pointing to them).</li>
+<li>Build cache for images you don’t use anymore.</li>
+</ul>
+<p>Commands you’ll use to stay sane:</p>
+<pre><code># Remove unused images (no containers use them)
+docker image prune
+
+# More aggressive: remove all images not referenced by any container
+docker image prune -a
+
+# Remove unused containers, networks, images (and optionally volumes if you add flags)
+docker system prune
+docker system prune -a
+
+</code></pre>
+<p>Use aggressive flags (<code>-a</code>) with care, especially on shared or production systems.</p>
+<p>In a dev environment, a periodic <code>docker system prune -a</code> is fine as long as you know you’ll be re‑pulling images.</p>
+<hr/>
+<h2 id="8-security-basics-for-images">8. Security Basics for Images<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#8-security-basics-for-images" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Even at the image level, you can make security better or worse.</p>
+<p>Key principles:</p>
+<ul>
+<li><strong>Minimal base</strong>: fewer packages, fewer vulnerabilities.</li>
+<li><strong>No secrets baked into images</strong>:
+<ul>
+<li>Never <code>COPY .env</code> or embed passwords as ENV variables in the Dockerfile.</li>
+</ul>
+</li>
+<li><strong>Non‑root where possible</strong>:
+<ul>
+<li>Create a dedicated user and <code>USER</code> switch to it in the Dockerfile.</li>
+</ul>
+</li>
+</ul>
+<p>Example:</p>
+<pre><code>FROM eclipse-temurin:21-jre-alpine
+
+# Create user and group
+RUN addgroup -S app &amp;&amp; adduser -S app -G app
+
+WORKDIR /app
+COPY app.jar /app/app.jar
+
+USER app
+CMD [&quot;java&quot;,&quot;-jar&quot;,&quot;app.jar&quot;]
+
+</code></pre>
+<p>This won’t make you bulletproof, but it’s a baseline: an exploit in your app has fewer permissions inside the container.</p>
+<hr/>
+<h2 id="9-putting-it-together-a-typical-spring-boot-image">9. Putting It Together: A Typical Spring Boot Image<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#9-putting-it-together-a-typical-spring-boot-image" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Here’s a complete example that combines most of the ideas above.</p>
+<pre><code># Build stage
+FROM eclipse-temurin:21-jdk-alpine AS build
+WORKDIR /app
+
+# Dependencies
+COPY pom.xml .
+RUN mvn -q -B dependency:go-offline
+
+# Source and build
+COPY src ./src
+RUN mvn -q -B package -DskipTests
+
+# Runtime stage
+FROM eclipse-temurin:21-jre-alpine
+
+# Create non-root user
+RUN addgroup -S app &amp;&amp; adduser -S app -G app
+
+WORKDIR /app
+COPY --from=build /app/target/app.jar app.jar
+
+USER app
+EXPOSE 8080
+CMD [&quot;java&quot;,&quot;-jar&quot;,&quot;app.jar&quot;]
+
+</code></pre>
+<p>This gives you:</p>
+<ul>
+<li>Cache‑friendly builds.</li>
+<li>Smaller runtime image (no Maven/JDK).</li>
+<li>Non‑root user.</li>
+<li>Explicit port.</li>
+</ul>
+<p>From there:</p>
+<pre><code>docker build -t myorg/orders-api:1.0.0 .
+docker tag myorg/orders-api:1.0.0 myorg/orders-api:latest
+docker run -d --name orders-api -p 8080:8080 myorg/orders-api:1.0.0
+
+</code></pre>
+<p>You now have a well‑structured image lifecycle, instead of random copy‑paste Dockerfiles.</p>
+<hr/></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc desktop-only"><button type="button" class="toc-header" aria-controls="toc-2" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-1" class="toc-content overflow"><li class="depth-0"><a href="#1-mental-model-image-vs-container-vs-registry" data-for="1-mental-model-image-vs-container-vs-registry">1. Mental Model: Image vs Container vs Registry</a></li><li class="depth-0"><a href="#2-image-internals-layers-and-the-build-graph" data-for="2-image-internals-layers-and-the-build-graph">2. Image Internals: Layers and the Build Graph</a></li><li class="depth-0"><a href="#3-build-cache-why-instruction-order-matters" data-for="3-build-cache-why-instruction-order-matters">3. Build Cache: Why Instruction Order Matters</a></li><li class="depth-0"><a href="#4-core-commands-list-build-tag-push-inspect" data-for="4-core-commands-list-build-tag-push-inspect">4. Core Commands: List, Build, Tag, Push, Inspect</a></li><li class="depth-0"><a href="#41-listing-images" data-for="41-listing-images">4.1 Listing Images</a></li><li class="depth-0"><a href="#42-building-images" data-for="42-building-images">4.2 Building Images</a></li><li class="depth-0"><a href="#43-tagging-images" data-for="43-tagging-images">4.3 Tagging Images</a></li><li class="depth-0"><a href="#44-pushing--pulling-registries" data-for="44-pushing--pulling-registries">4.4 Pushing &amp; Pulling (Registries)</a></li><li class="depth-0"><a href="#45-inspecting-images-and-their-layers" data-for="45-inspecting-images-and-their-layers">4.5 Inspecting Images and Their Layers</a></li><li class="depth-0"><a href="#5-image-size-why-it-matters-and-how-to-shrink-it" data-for="5-image-size-why-it-matters-and-how-to-shrink-it">5. Image Size: Why It Matters and How to Shrink It</a></li><li class="depth-0"><a href="#51-choose-the-right-base-image" data-for="51-choose-the-right-base-image">5.1 Choose the Right Base Image</a></li><li class="depth-0"><a href="#52-clean-up-after-package-installs" data-for="52-clean-up-after-package-installs">5.2 Clean Up After Package Installs</a></li><li class="depth-0"><a href="#53-multi-stage-builds-to-strip-tools" data-for="53-multi-stage-builds-to-strip-tools">5.3 Multi-Stage Builds to Strip Tools</a></li><li class="depth-0"><a href="#6-tagging-strategy-knowing-whats-in-prod" data-for="6-tagging-strategy-knowing-whats-in-prod">6. Tagging Strategy: Knowing What’s in Prod</a></li><li class="depth-0"><a href="#7-cleanup-and-disk-management" data-for="7-cleanup-and-disk-management">7. Cleanup and Disk Management</a></li><li class="depth-0"><a href="#8-security-basics-for-images" data-for="8-security-basics-for-images">8. Security Basics for Images</a></li><li class="depth-0"><a href="#9-putting-it-together-a-typical-spring-boot-image" data-for="9-putting-it-together-a-typical-spring-boot-image">9. Putting It Together: A Typical Spring Boot Image</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-2" class="overflow"><li><a href="../Docker/0-Course-Overview-and-Index" class="internal">0. Course Overview and Index</a></li><li><a href="../" class="internal">Docker Mastery</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2026</p><ul><li><a href="https://github.com/jackyzha0/quartz">GitHub</a></li><li><a href="https://discord.gg/cRFFHYye7t">Discord Community</a></li></ul></footer></div></div></body><script type="application/javascript" data-persist="true">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module" data-persist="true">function E(a,e){if(!a)return;function t(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function n(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}a?.addEventListener("click",t),window.addCleanup(()=>a?.removeEventListener("click",t)),document.addEventListener("keydown",n),window.addCleanup(()=>document.removeEventListener("keydown",n))}function f(a){for(;a.firstChild;)a.removeChild(a.firstChild)}var m=class{constructor(e,t){this.container=e;this.content=t;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),t=this.onMouseMove.bind(this),n=this.onMouseUp.bind(this),o=this.onTouchStart.bind(this),r=this.onTouchMove.bind(this),i=this.onTouchEnd.bind(this),s=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",t),document.addEventListener("mouseup",n),this.container.addEventListener("touchstart",o,{passive:!1}),document.addEventListener("touchmove",r,{passive:!1}),document.addEventListener("touchend",i),window.addEventListener("resize",s),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",t),()=>document.removeEventListener("mouseup",n),()=>this.container.removeEventListener("touchstart",o),()=>document.removeEventListener("touchmove",r),()=>document.removeEventListener("touchend",i),()=>window.removeEventListener("resize",s))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let t=this.createButton("+",()=>this.zoom(.1)),n=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(n),e.appendChild(o),e.appendChild(t),this.container.appendChild(e)}createButton(e,t){let n=document.createElement("button");return n.textContent=e,n.className="mermaid-control-button",n.addEventListener("click",t),window.addCleanup(()=>n.removeEventListener("click",t)),n}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}onTouchStart(e){if(e.touches.length!==1)return;this.isDragging=!0;let t=e.touches[0];this.startPan={x:t.clientX-this.currentPan.x,y:t.clientY-this.currentPan.y}}onTouchMove(e){if(!this.isDragging||e.touches.length!==1)return;e.preventDefault();let t=e.touches[0];this.currentPan={x:t.clientX-this.startPan.x,y:t.clientY-this.startPan.y},this.updateTransform()}onTouchEnd(){this.isDragging=!1}zoom(e){let t=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),n=this.content.getBoundingClientRect(),o=n.width/2,r=n.height/2,i=t-this.scale;this.currentPan.x-=o*i,this.currentPan.y-=r*i,this.scale=t,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){let t=this.content.querySelector("svg").getBoundingClientRect(),n=t.width/this.scale,o=t.height/this.scale;this.scale=1,this.currentPan={x:(this.container.clientWidth-n)/2,y:(this.container.clientHeight-o)/2},this.updateTransform()}},T=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],y;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;y||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let t=y.default,n=new WeakMap;for(let r of e)n.set(r,r.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let c=n.get(s);c&&(s.innerHTML=c)}let r=T.reduce((s,c)=>(s[c]=window.getComputedStyle(document.documentElement).getPropertyValue(c),s),{}),i=document.documentElement.getAttribute("saved-theme")==="dark";t.initialize({startOnLoad:!1,securityLevel:"loose",theme:i?"dark":"base",themeVariables:{fontFamily:r["--codeFont"],primaryColor:r["--light"],primaryTextColor:r["--darkgray"],primaryBorderColor:r["--tertiary"],lineColor:r["--darkgray"],secondaryColor:r["--secondary"],tertiaryColor:r["--tertiary"],clusterBkg:r["--light"],edgeLabelBackground:r["--highlight"]}}),await t.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let r=0;r<e.length;r++){let v=function(){let g=l.querySelector("#mermaid-space"),h=l.querySelector(".mermaid-content");if(!h)return;f(h);let w=i.querySelector("svg").cloneNode(!0);h.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new m(g,h)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},i=e[r],s=i.parentElement,c=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(c),L=c.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),E(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript.js" type="module" data-persist="true"></script></html>

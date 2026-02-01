@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+    <channel>
+      <title>Quartz 4</title>
+      <link>https://mahesh-puri.github.io/full-stack-dev</link>
+      <description>Last 10 notes on Quartz 4</description>
+      <generator>Quartz -- quartz.jzhao.xyz</generator>
+      <item>
+    <title>Docker Cheatsheet</title>
+    <link>https://mahesh-puri.github.io/full-stack-dev/Docker-Cheatsheet</link>
+    <guid>https://mahesh-puri.github.io/full-stack-dev/Docker-Cheatsheet</guid>
+    <description><![CDATA[ Docker Cheatsheet – Developer &amp; DevOps Reference This page provides a concise, command-focused reference for common Docker tasks used by developers and DevOps engineers. ]]></description>
+    <pubDate>Sun, 01 Feb 2026 14:46:42 GMT</pubDate>
+  </item><item>
+    <title>0. Course Overview and Index</title>
+    <link>https://mahesh-puri.github.io/full-stack-dev/Docker/0-Course-Overview-and-Index</link>
+    <guid>https://mahesh-puri.github.io/full-stack-dev/Docker/0-Course-Overview-and-Index</guid>
+    <description><![CDATA[ This course builds a practical mental model of Docker from first principles and then connects it to real-world DevOps workflows. ]]></description>
+    <pubDate>Sun, 01 Feb 2026 14:46:42 GMT</pubDate>
+  </item><item>
+    <title>1. Docker Images</title>
+    <link>https://mahesh-puri.github.io/full-stack-dev/Docker/1-Docker-Images</link>
+    <guid>https://mahesh-puri.github.io/full-stack-dev/Docker/1-Docker-Images</guid>
+    <description><![CDATA[ If containers are lightweight processes, images are the immutable blueprints that define what those processes look like at runtime. ]]></description>
+    <pubDate>Sun, 01 Feb 2026 14:46:42 GMT</pubDate>
+  </item><item>
+    <title>10. Debugging Docker</title>
+    <link>https://mahesh-puri.github.io/full-stack-dev/Docker/10-Debugging-Docker</link>
+    <guid>https://mahesh-puri.github.io/full-stack-dev/Docker/10-Debugging-Docker</guid>
+    <description><![CDATA[ When something breaks in Docker, resist the urge to “try random commands until it works.” Containers are just Linux processes with extra plumbing, so you debug them the same way: check if they exist, if they run, what they log, what they listen on, and what they can reach. ]]></description>
+    <pubDate>Sun, 01 Feb 2026 14:46:42 GMT</pubDate>
+  </item><item>
+    <title>11. From Docker to Orchestrators</title>
+    <link>https://mahesh-puri.github.io/full-stack-dev/Docker/11-From-Docker-to-Orchestrators</link>
+    <guid>https://mahesh-puri.github.io/full-stack-dev/Docker/11-From-Docker-to-Orchestrators</guid>
+    <description><![CDATA[ All the mental models you’ve built (images, containers, networks, volumes, Compose) are the foundation of Swarm and Kubernetes. ]]></description>
+    <pubDate>Sun, 01 Feb 2026 14:46:42 GMT</pubDate>
+  </item><item>
+    <title>2. Docker Containers</title>
+    <link>https://mahesh-puri.github.io/full-stack-dev/Docker/2-Docker-Containers</link>
+    <guid>https://mahesh-puri.github.io/full-stack-dev/Docker/2-Docker-Containers</guid>
+    <description><![CDATA[ Most people start by thinking of containers as “lightweight VMs.” That mental model works for a few days, then hurts you for years. ]]></description>
+    <pubDate>Sun, 01 Feb 2026 14:46:42 GMT</pubDate>
+  </item><item>
+    <title>3. Docker Networking</title>
+    <link>https://mahesh-puri.github.io/full-stack-dev/Docker/3-Docker-Networking</link>
+    <guid>https://mahesh-puri.github.io/full-stack-dev/Docker/3-Docker-Networking</guid>
+    <description><![CDATA[ Docker networking feels magical until something doesn’t connect—then it feels like black magic. ]]></description>
+    <pubDate>Sun, 01 Feb 2026 14:46:42 GMT</pubDate>
+  </item><item>
+    <title>4. Docker Volumes</title>
+    <link>https://mahesh-puri.github.io/full-stack-dev/Docker/4-Docker-Volumes</link>
+    <guid>https://mahesh-puri.github.io/full-stack-dev/Docker/4-Docker-Volumes</guid>
+    <description><![CDATA[ Containers are designed to be disposable. That’s perfect for stateless services, but terrible for things like databases, uploads, and logs. ]]></description>
+    <pubDate>Sun, 01 Feb 2026 14:46:42 GMT</pubDate>
+  </item><item>
+    <title>5. Dockerfile Mastery</title>
+    <link>https://mahesh-puri.github.io/full-stack-dev/Docker/5-Dockerfile-Mastery</link>
+    <guid>https://mahesh-puri.github.io/full-stack-dev/Docker/5-Dockerfile-Mastery</guid>
+    <description><![CDATA[ A Dockerfile is not a shell script; it’s a deterministic build recipe that produces an immutable image. ]]></description>
+    <pubDate>Sun, 01 Feb 2026 14:46:42 GMT</pubDate>
+  </item><item>
+    <title>6. Multi‑Stage Docker Builds</title>
+    <link>https://mahesh-puri.github.io/full-stack-dev/Docker/6-Multi%E2%80%91Stage-Docker-Builds</link>
+    <guid>https://mahesh-puri.github.io/full-stack-dev/Docker/6-Multi%E2%80%91Stage-Docker-Builds</guid>
+    <description><![CDATA[ Multi‑stage builds exist to solve a very concrete problem: images that are huge, slow to ship, and full of compilers and dev tools that have no business being in production. ]]></description>
+    <pubDate>Sun, 01 Feb 2026 14:46:42 GMT</pubDate>
+  </item>
+    </channel>
+  </rss>
