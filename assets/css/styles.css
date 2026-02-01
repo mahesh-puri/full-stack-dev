@@ -791,3 +791,46 @@ img {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/*============= DARK THEME CSS =============*/
+
+body.dark-theme {
+  --first-color: #ff6b4a;
+  --first-color-light: #1e1e1e;
+  --first-color-lighten: #121212;
+  --first-color-dark: #ff8a65;
+  --first-color-darken: #0d0d0d;
+
+  --text-color: #e0e0e0;
+}
+
+body.dark-theme {
+  background-color: #121212;
+}
+
+body.dark-theme .l-header,
+body.dark-theme .footer__container,
+body.dark-theme .project__container,
+body.dark-theme .services__content {
+  background-color: #1e1e1e;
+  box-shadow: none;
+}
+body.dark-theme a {
+  color: #e0e0e0;
+}
+
+body.dark-theme .nav__link {
+  color: #ffffff;
+}
+
+body.dark-theme .nav__link:hover {
+  color: var(--first-color);
+}
+body.dark-theme .button {
+  background-color: var(--first-color);
+  color: #121212;
+}
+
+body.dark-theme .button:hover {
+  background-color: #ff8a65;
+}
