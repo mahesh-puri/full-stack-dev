@@ -28,7 +28,7 @@ jobs:
 
       - name: Install Node dependencies
         run: |
-          npm ci
+          npm install
 
       - name: Build Quartz site
         run: |
