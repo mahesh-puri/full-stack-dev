@@ -236,7 +236,9 @@ img {
   height: 160px;
   border-radius: 50%;
   border: 1px solid var(--first-color-darken);
-  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 22px 0 rgba(0, 0, 0, 0.19);
+  box-shadow:
+    0 6px 10px 0 rgba(0, 0, 0, 0.2),
+    0 8px 22px 0 rgba(0, 0, 0, 0.19);
   overflow: hidden;
   margin-bottom: var(--mb-2);
 }
@@ -290,6 +292,20 @@ img {
   width: 100%;
 }
 
+/* ===== HOME BUTTON GROUP ===== */
+.home__buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Override single-button styles when grouped */
+.home__buttons .home__button {
+  width: auto; /* 🔑 cancels width: 100% */
+  margin: 0; /* 🔑 removes big margins */
+}
+
 /*BUTTONS*/
 .button {
   display: inline-block;
@@ -330,7 +346,9 @@ img {
 .about__img {
   width: 150px;
   /* border: var(--first-color-darken) solid 1px; */
-  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 22px 0 rgba(0, 0, 0, 0.19);
+  box-shadow:
+    0 6px 10px 0 rgba(0, 0, 0, 0.2),
+    0 8px 22px 0 rgba(0, 0, 0, 0.19);
   border-radius: 0.5rem;
   margin: 0 auto;
 }
