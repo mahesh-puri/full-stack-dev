@@ -16,7 +16,7 @@ const config: QuartzConfig = {
       provider: "plausible",
     },
     locale: "en-US",
-    baseUrl: "mahesh-puri.github.io/resume/courses/devops/Docker-Mastery",
+    baseUrl: "mahesh-puri.github.io/full-stack-dev/courses/devops/Docker-Mastery",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
     theme: {
