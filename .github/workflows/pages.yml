@@ -27,21 +27,24 @@ jobs:
         uses: actions/configure-pages@v4
 
       - name: Install Node dependencies
+        working-directory: courses/devops/Docker-Mastery
         run: |
           npm install
 
       - name: Build Quartz site
+        working-directory: courses/devops/Docker-Mastery
         run: |
           npx quartz build
 
       - name: Disable Jekyll
+        working-directory: courses/devops/Docker-Mastery
         run: |
           touch public/.nojekyll
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: public
+          path: courses/devops/Docker-Mastery/public
 
   deploy:
     runs-on: ubuntu-latest
